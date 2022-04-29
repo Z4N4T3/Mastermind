@@ -19,13 +19,12 @@ const int LimT = 12;// LimT refiere al numero de intentos para decodificar el co
 int main (){
     int Code [TAM], CB[TAM];
     int State[TAM]; 
-    int turn = 0, op =0, coin, acert, rojito;
+    int turn = 0, op =0, coin=0, acert=0, rojito=0;
     char Mark [3];
     char colorCito[][10] = {"Magenta", "Cian","Amarillo","Morado","Blanco","Rojo","Celeste","Naranja"}; // esto es un arreglo de strings [Indica la cantidad de strings contenidas en la matriz][indica el tamaño MAX de los caracteres contenidos]
     int i, j;
     srand (time(NULL)); // se declara la semilla del randomizador
-    
-   
+	system("clear");
    // genera un numero aleatorio  [0, Numcolors) *NOTA* el algoritmo sería ineficiente con rangos altos
     Code[0] = rand() %8;
     for (i =1; i < TAM; i++){
@@ -40,26 +39,25 @@ int main (){
     for (i =0; i < TAM; i++){
         printf("%d %c",Code[i], NL);
     }
-    
-    
+
+
     printf("*** MASTERMIND *** %c", NL);
     //printf("REGLAS");
-    
     do {
         printf("%cTURNO # %d%c",NL,turn+1,NL);
         printf("*** Seleccion de colores ***%c", NL);
-        
+
 
         // este hpta lo que hace es pintar los colores en pantalla [*cambiarlo por una funcion print*]
 
-        printf("0-Magenta 1-Cian 2-Amarillo 3-Morado 4-Blanco 5-Rojo 6-Celeste 7-Naranja%c", NL);
-
+        printf("0.Magenta\t4.Blanco\n1.Cian  \t5.Rojo\n2.Amarillo\t6.Celeste\n3.Morado\t7.Naranja%c", NL);
+	printf("****************************\n");
         // SELECCIOn de colores
         for (i =0; i < TAM; i++){
-         
-                printf("[%d] ",i); 
-                scanf("%d", &CB[i]);       
-           // validacion de datos 
+
+                printf("[%d] ",i);
+                scanf("%d", &CB[i]);
+           // validacion de datos
           if ((CB[i] <0) || (CB[i] >Numcolors)){
                printf("No te pases de gracioso perro hpta, si solo hay 8 COLORES%c", NL);
                i--;
@@ -70,14 +68,10 @@ int main (){
         // pistas
 
 
-printf("Rojitos: %d %c coin: %d", acert, NL, coin);
+printf("Rojitos: %d %ccoin: %d", acert, NL, coin);
 
         // mostrar los colores seleccionados:
-    for(i =0; i < TAM; i++){
 
-        printf("%c", Mark[i]);
-
-    }
         for (i =0; i < TAM ; i++){
 
             printf("%c[%d]-%s", NL,i, colorCito[CB[i]]);
