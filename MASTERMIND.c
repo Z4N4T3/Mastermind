@@ -1,36 +1,29 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-enum Colors {
-    MAGENTA, //0
-    CIAN, //1
-    AMARILLO, //2 
-    MORADO, //3
-    BLANCO, //4
-    ROJO, //5
-    CELESTE, //6
-    NARANJA//7
-    };
+
 const int TAM = 4; // TAM refiere al tamaño del codigo 4
 const int Numcolors = 8; // Ncolors refiere al numero de colores disponibles +1*/
 const char NL = '\n'; // salto de linea
-const int LimT = 12;// LimT refiere al numero de intentos para decodificar el codigo
+const int LimT = 2;// LimT refiere al numero de intentos para decodificar el codigo
 
 int main (){
+
+    int win =0;
     int Code [TAM], CB[TAM];
-    int State[TAM]; 
-    int turn = 0, op =0, coin=0, acert=0, rojito=0;
-    char Mark [3];
+    int att = 0;
+
     char colorCito[][10] = {"Magenta", "Cian","Amarillo","Morado","Blanco","Rojo","Celeste","Naranja"}; // esto es un arreglo de strings [Indica la cantidad de strings contenidas en la matriz][indica el tamaño MAX de los caracteres contenidos]
     int i=0, j=0;
 
     int blanco =0, rojo =0;
+
     srand (time(NULL)); // se declara la semilla del randomizador
-	system("clear");
-   // genera un numero aleatorio  [0, Numcolors) *NOTA* el algoritmo sería ineficiente con rangos altos
+    system("clear");
+    // genera un numero aleatorio  [0, Numcolors) *NOTA* el algoritmo sería ineficiente con rangos altos
     Code[0] = rand() %8;
     for (i =1; i < TAM; i++){
-            Code[i] = rand() %Numcolors; 
+            Code[i] = rand() %Numcolors;
             for (j =0; j < i; j++){
                 if (Code[i]==Code[j]){
                     i--;
@@ -38,15 +31,19 @@ int main (){
             }
         }
     // muestra el codigo (debug)
-    for (i =0; i < TAM; i++){
+   for (i =0; i < TAM; i++){
         printf("%d %c",Code[i], NL);
     }
 
 
-    printf("*** MASTERMIND *** %c", NL);
     //printf("REGLAS");
     do {
-        printf("%cTURNO # %d%c",NL,turn+1,NL);
+	if (att<LimT && rojo ==4){
+		win =1;
+		break;
+	}
+        printf("\n******** MASTERMIND ********%c", NL);
+        printf("\t  TURNO #%d%c",att+1,NL);
         printf("*** Seleccion de colores ***%c", NL);
 
 
@@ -54,19 +51,20 @@ int main (){
 
         printf("0.Magenta\t4.Blanco\n1.Cian  \t5.Rojo\n2.Amarillo\t6.Celeste\n3.Morado\t7.Naranja%c", NL);
 	printf("****************************\n");
-        // SELECCIOn de colores
-        for (i =0; i < TAM; i++){
 
+
+     // SELECCIOn de colores
+        for (i =0; i < TAM; i++){
                 printf("[%d] ",i);
                 scanf("%d", &CB[i]);
            // validacion de datos
-          if ((CB[i] <0) || (CB[i] >Numcolors)){
+          if ((CB[i] <0) || (CB[i] >=Numcolors)){
                printf("No te pases de gracioso perro hpta, si solo hay 8 COLORES%c", NL);
                i--;
            }
 
         }
-
+	system("clear");
         // pistas
 	rojo =0;
 	for (i =0; i<TAM;i++){
@@ -81,7 +79,6 @@ int main (){
 				break;
 				}
 			}
-
 		if (!blanco && j==TAM)
 			printf("(%d) NULL\n",i);
 		}
@@ -95,11 +92,19 @@ int main (){
 
         }
 
-    turn++;
-    }while (turn < LimT);
 
+    att++;
+    }while (!win && att<LimT);
 
-
-
+    if (win){
+    printf("\nHAS DECIFRADO EL CODIGO!!!\nEn %d turnos\n",att);
+    for (i =0; i<TAM; i++)
+	printf("%s  ",colorCito[Code[i]]);
+    }else{
+    printf("\nTe has quedado sin intentos\ny no has podido decifrar el codigo\n");
+    for (i=0; i<TAM;i++)
+	printf("%s - ",colorCito[Code[i]]);
+    }
+    printf("\n");
     return 0;
 }
