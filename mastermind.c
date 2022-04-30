@@ -5,7 +5,7 @@
 const int TAM = 4; // TAM refiere al tamaño del codigo 4
 const int Numcolors = 8; // Ncolors refiere al numero de colores disponibles +1*/
 const char NL = '\n'; // salto de linea
-const int LimT = 2;// LimT refiere al numero de intentos para decodificar el codigo
+const int LimT = 8;// LimT refiere al numero de intentos para decodificar el codigo
 
 int main (){
 
@@ -30,11 +30,6 @@ int main (){
                 }
             }
         }
-    // muestra el codigo (debug)
-   for (i =0; i < TAM; i++){
-        printf("%d %c",Code[i], NL);
-    }
-
 
     //printf("REGLAS");
     do {
