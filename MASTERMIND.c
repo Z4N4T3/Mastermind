@@ -22,7 +22,9 @@ int main (){
     int turn = 0, op =0, coin=0, acert=0, rojito=0;
     char Mark [3];
     char colorCito[][10] = {"Magenta", "Cian","Amarillo","Morado","Blanco","Rojo","Celeste","Naranja"}; // esto es un arreglo de strings [Indica la cantidad de strings contenidas en la matriz][indica el tamaño MAX de los caracteres contenidos]
-    int i, j;
+    int i=0, j=0;
+
+    int blanco =0, rojo =0;
     srand (time(NULL)); // se declara la semilla del randomizador
 	system("clear");
    // genera un numero aleatorio  [0, Numcolors) *NOTA* el algoritmo sería ineficiente con rangos altos
@@ -66,9 +68,24 @@ int main (){
         }
 
         // pistas
+	rojo =0;
+	for (i =0; i<TAM;i++){
+		blanco =0;
+		if (Code[i]==CB[i]){
+			printf("(%d) rojo\n",i); rojo++;
+		}else{
+			for (j=0;j<TAM;j++){
+				if(CB[i]==Code[j]){
+				printf("(%d) blanco\n",i);
+				blanco =1;
+				break;
+				}
+			}
 
-
-printf("Rojitos: %d %ccoin: %d", acert, NL, coin);
+		if (!blanco && j==TAM)
+			printf("(%d) NULL\n",i);
+		}
+	}
 
         // mostrar los colores seleccionados:
 
