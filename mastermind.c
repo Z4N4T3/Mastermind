@@ -2,10 +2,15 @@
 #include <time.h>
 #include <stdlib.h>
 
+
+
 const int TAM = 4; // TAM refiere al tamaño del codigo 4
 const int Numcolors = 8; // Ncolors refiere al numero de colores disponibles +1*/
 const char NL = '\n'; // salto de linea
 const int LimT = 8;// LimT refiere al numero de intentos para decodificar el codigo
+
+
+void paint(int n, char a[][n], int b[], int size);
 
 int main (){
 
@@ -81,25 +86,24 @@ int main (){
 
         // mostrar los colores seleccionados:
 
-        for (i =0; i < TAM ; i++){
+	paint(10,colorCito,CB,TAM);
 
-            printf("%c[%d]-%s", NL,i, colorCito[CB[i]]);
-
-        }
-
-
-    att++;
+    	att++;
     }while (!win && att<LimT);
 
     if (win){
-    printf("\nHAS DECIFRADO EL CODIGO!!!\nEn %d turnos\n",att);
-    for (i =0; i<TAM; i++)
-	printf("%s  ",colorCito[Code[i]]);
+    	printf("\nHAS DECIFRADO EL CODIGO!!!\nEn %d turnos\n",att);
+	paint(10,colorCito,Code,TAM);
     }else{
-    printf("\nTe has quedado sin intentos\ny no has podido decifrar el codigo\n");
-    for (i=0; i<TAM;i++)
-	printf("%s - ",colorCito[Code[i]]);
+    	printf("\nTe has quedado sin intentos\ny no has podido decifrar el codigo\n");
+	paint(10,colorCito,Code,TAM);
     }
     printf("\n");
     return 0;
 }
+
+void paint (int n, char a[][n], int b[], int size){
+	int i =0;
+	for (i ; i < size; i++)
+		printf("\n[%d]-%s",i,a[b[i]]);
+} 
